@@ -1,0 +1,5 @@
+build/game.out
+*o
+.ccls-cache
+src/.ccls-cache
+src/include/.ccls-cache
