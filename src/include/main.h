@@ -5,5 +5,6 @@
 
 #include "window.h"
 #include "input.h"
+#include "shader.h"
 
 #endif

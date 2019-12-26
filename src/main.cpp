@@ -1,127 +1,14 @@
 #include "include/main.h"
 
-#include <fstream>
-#include <string>
-
-////////////////////////////////////////////////////////////////////////
-// Read external .glsl files ///////////////////////////////////////////
-std::string LoadVertexShader(const char *vShaderSource) {
-
-  FILE *file;
-
-  file = fopen(vShaderSource, "rb");
-  if (file == nullptr) {
-    std::cout << "ERROR::SHADER::VERTEX::NOT_FOUND\n"
-              << vShaderSource << std::endl;
-    return 0;
-  }
-
-  std::string content;
-  fseek(file, 0, SEEK_END);
-  size_t filesize = ftell(file);
-  rewind(file);
-  content.resize(filesize);
-
-  fread(&content[0], 1, filesize, file);
-  fclose(file);
-
-  std::cout << "'" << content << "'" << std::endl;
-  return content;
-}
-
-std::string LoadFragmentShader(const char *fShaderSource) {
-  std::string content;
-  std::ifstream fileStream(fShaderSource, std::ios::in);
-
-  if (!fileStream.is_open()) {
-    std::cerr << "ERROR::SHADER::VERTEX::NOT_FOUND\n"
-              << fShaderSource << std::endl;
-    return "";
-  }
-
-  std::string line = "";
-  while (!fileStream.eof()) {
-    std::getline(fileStream, line);
-    content.append(line + "\n");
-  }
-
-  fileStream.close();
-  std::cout << "'" << content << "'" << std::endl;
-  return content;
-}
-////////////////////////////////////////////////////////////////////////
-
-const char *vertexShaderSource =
-    "#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
-    "void main()\n"
-    "{\n"
-    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-    "}\0";
-
-const char *fragmentShaderSource =
-    "#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "void main()\n"
-    "{\n"
-    "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-    "}\n";
-
 int main(int argc, char *argv[]) {
 
   GLFWwindow *window = setupWindow();
 
-  LoadVertexShader("src/shaders/basic.vs.glsl");
-
-  LoadFragmentShader("src/shaders/basic.fs.glsl");
-
   //////////////////////////////////////////////
   // Build and compile our shaders /////////////
-  // Vertex shader
-  int success;
-  char infoLog[512];
-
-  unsigned int vertexShader;
-  vertexShader = glCreateShader(GL_VERTEX_SHADER);
-  glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-  glCompileShader(vertexShader);
-  // check for shader compile errors
-  glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-  if (!success) {
-    glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-    std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
-              << infoLog << std::endl;
-  }
-
-  // Fragment shader
-  unsigned int fragmentShader;
-  fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-  glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-  glCompileShader(fragmentShader);
-  // check for shader compile errors
-  glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-  if (!success) {
-    glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-    std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n"
-              << infoLog << std::endl;
-  }
-
-  // Shader program
-  unsigned int shaderProgram;
-  shaderProgram = glCreateProgram();
-  glAttachShader(shaderProgram, vertexShader);
-  glAttachShader(shaderProgram, fragmentShader);
-  glLinkProgram(shaderProgram);
-  // check for linking errors
-  glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-  if (!success) {
-    glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-    std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n"
-              << infoLog << std::endl;
-  }
-  glDeleteShader(vertexShader);
-  glDeleteShader(fragmentShader);
-  //////////////////////////////////////////////
+  unsigned int vertexShader = LoadVertexShader("src/shaders/basic.vs.glsl");
+  unsigned int fragmentShader = LoadFragmentShader("src/shaders/basic.fs.glsl");
+  unsigned int shaderProgram = LoadShaderProgram(vertexShader, fragmentShader);
 
   ////////////////////////////////////////////////////////////////////////
   // Set up Vertices and Indices for to triangles to create a cube ///////
