@@ -3,6 +3,6 @@
 This is a learning project.
 
 
-## TODO - yage
+## TODOs
 
 - [ ] Decide which file loading methode we are going to use (shader.cpp)
