@@ -1,7 +1,7 @@
 exec = game.out
 sources := $(wildcard src/*.cpp)
 objects = $(sources:.cpp=.o)
-flags = -IGL/include -lglfw -ldl -lGL -lGLEW
+flags = -IGL/include -lglfw -ldl -lGL -lGLEW -Wall
 
 $(exec): $(objects)
 	g++ $(objects) $(flags) -o build/$(exec)
