@@ -4,8 +4,8 @@ int main(int argc, char *argv[]) {
 
   GLFWwindow *window = setupWindow();
 
-  //////////////////////////////////////////////
-  // Build and compile our shaders /////////////
+  ////////////////////////////////////////////////////
+  // Load our shaders and shader program /////////////
   unsigned int vertexShader = LoadVertexShader("src/shaders/basic.vs.glsl");
   unsigned int fragmentShader = LoadFragmentShader("src/shaders/basic.fs.glsl");
   unsigned int shaderProgram = LoadShaderProgram(vertexShader, fragmentShader);
