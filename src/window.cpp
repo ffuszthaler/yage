@@ -27,7 +27,7 @@ GLFWwindow *setupWindow() {
     return NULL;
   }
 
-  std::cout << "YAGE::VERSION::OPENGL - " << glGetString(GL_VERSION) << std::endl;
+  std::cout << "INFO::VERSION::OPENGL - " << glGetString(GL_VERSION) << std::endl;
 
   glViewport(0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 
