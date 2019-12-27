@@ -23,7 +23,7 @@ unsigned int LoadVertexShader(const char *vShaderSource) {
   fclose(file);
 
   std::cout << "LOAD::SHADER::VERTEX - " << vShaderSource << std::endl << content << std::endl;
-  
+
   const char *vertexShaderSource = content.c_str();
 
   unsigned int vertexShader;
