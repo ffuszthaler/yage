@@ -6,9 +6,9 @@ int main(int argc, char *argv[]) {
 
   ////////////////////////////////////////////////////
   // Load our shaders and shader program /////////////
-  unsigned int vertexShader = LoadVertexShader("src/shaders/basic.vs.glsl");
-  unsigned int fragmentShader = LoadFragmentShader("src/shaders/basic.fs.glsl");
-  unsigned int shaderProgram = LoadShaderProgram(vertexShader, fragmentShader);
+  unsigned int vertexShader = loadVertexShader("src/shaders/basic.vs.glsl");
+  unsigned int fragmentShader = loadFragmentShader("src/shaders/basic.fs.glsl");
+  unsigned int shaderProgram = createShaderProgram(vertexShader, fragmentShader);
 
   ////////////////////////////////////////////////////////////////////////
   // Set up Vertices and Indices for to triangles to create a cube ///////

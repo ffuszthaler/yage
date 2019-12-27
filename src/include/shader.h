@@ -6,9 +6,9 @@
 #include <string>
 #include <GL/glew.h>
 
-unsigned int LoadVertexShader(const char *vShaderSource);
+unsigned int loadVertexShader(const char *vShaderSource);
 
-unsigned int LoadFragmentShader(const char *fShaderSource);
+unsigned int loadFragmentShader(const char *fShaderSource);
 
-unsigned int LoadShaderProgram(unsigned int vertexShader, unsigned int fragmentShader);
+unsigned int createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader);
 #endif

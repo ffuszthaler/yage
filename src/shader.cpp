@@ -3,7 +3,7 @@
 int success;
 char infoLog[512];
 
-unsigned int LoadVertexShader(const char *vShaderSource) {
+unsigned int loadVertexShader(const char *vShaderSource) {
 
   FILE *file;
 
@@ -41,7 +41,7 @@ unsigned int LoadVertexShader(const char *vShaderSource) {
   return vertexShader;
 }
 
-unsigned int LoadFragmentShader(const char *fShaderSource) {
+unsigned int loadFragmentShader(const char *fShaderSource) {
   std::string content;
   std::ifstream fileStream(fShaderSource, std::ios::in);
 
@@ -77,7 +77,7 @@ unsigned int LoadFragmentShader(const char *fShaderSource) {
   return fragmentShader;
 }
 
-unsigned int LoadShaderProgram(unsigned int vertexShader, unsigned int fragmentShader) {
+unsigned int createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader) {
   unsigned int shaderProgram;
   shaderProgram = glCreateProgram();
   glAttachShader(shaderProgram, vertexShader);
