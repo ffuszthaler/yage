@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
   setVertexBuffer(vertices, sizeof(vertices));
   setIndexBuffer(indices, sizeof(indices));
 
+  // Location in layout: 0, POSITION (3 float values)
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
   glEnableVertexAttribArray(0);
   //////////////////////////////////////////////////////////////////////////////
