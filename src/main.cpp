@@ -4,14 +4,15 @@ int main(int argc, char *argv[]) {
 
   GLFWwindow *window = setupWindow();
 
-  ////////////////////////////////////////////////////
-  // Load our shaders and shader program /////////////
+  //////////////////////////////////////////////////////////////////////////////
+  // Load our shaders and shader program ///////////////////////////////////////
   unsigned int vertexShader = loadVertexShader("src/shaders/basic.vs.glsl");
   unsigned int fragmentShader = loadFragmentShader("src/shaders/basic.fs.glsl");
   unsigned int shaderProgram = createShaderProgram(vertexShader, fragmentShader);
+  //////////////////////////////////////////////////////////////////////////////
 
-  ////////////////////////////////////////////////////////////////////////
-  // Set up Vertices and Indices for to triangles to create a cube ///////
+  //////////////////////////////////////////////////////////////////////////////
+  // Set up Vertices and Indices for two triangles to create one cube //////////
   float vertices[] = {
       0.5f,  0.5f,  0.0f, // Top right
       0.5f,  -0.5f, 0.0f, // Bottom right
@@ -24,44 +25,20 @@ int main(int argc, char *argv[]) {
       0, 1, 3, // First triangle
       1, 2, 3  // Second triangle
   };
-  ////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
 
-  ////////////////////////////////////////////////////////////////////////
-  // Set up Buffers and configure vertex attributes //////////////////////
-  unsigned int VBO, VAO, EBO;
+  //////////////////////////////////////////////////////////////////////////////
+  // Set up Buffers and configure vertex attributes ////////////////////////////
+  unsigned int VAO = createVertexArray();
+  unsigned int VBO = createVertexBuffer();
+  unsigned int EBO = createIndexBuffer();
 
-  glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &EBO);
-  glGenBuffers(1, &VBO);
-
-  // Bind the Vertex Array Object first, then bind and set vertex buffer(s),
-  // and then configure vertex attributes(s).
-  glBindVertexArray(VAO);
-
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices,
-               GL_STATIC_DRAW);
+  setVertexBuffer(vertices, sizeof(vertices));
+  setIndexBuffer(indices, sizeof(indices));
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
   glEnableVertexAttribArray(0);
-
-  // Note that this is allowed, the call to glVertexAttribPointer
-  // registered VBO as the vertex attribute's bound vertex buffer object
-  // so afterwards we can safely unbind
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-  // You can unbind the VAO afterwards so other VAO calls won't
-  // accidentally modify this VAO, but this rarely happens. Modifying other
-  // VAOs requires a call to glBindVertexArray anyways so we generally
-  // don't unbind VAOs (nor VBOs) when it's not directly necessary.
-  glBindVertexArray(0);
-  ////////////////////////////////////////////////////////////////////////
-
-  // Uncomment this call to draw in wireframe polygons.
-  // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  //////////////////////////////////////////////////////////////////////////////
 
   while (!glfwWindowShouldClose(window)) {
 
