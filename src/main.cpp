@@ -26,13 +26,13 @@ int main(int argc, char *argv[]) {
   //   1, 2, 3  // Second triangle
   // };
 
-  // unsigned int VAO = createVertexArray();
+  // unsigned int VAO = genAndBindVAO();
 
-  // unsigned int VBO = createVertexBuffer();
-  // setVertexBuffer(vertices, sizeof(vertices));
+  // unsigned int VBO = genAndBindVBO();
+  // setVBOData(vertices, sizeof(vertices));
 
-  // unsigned int EBO = createIndexBuffer();
-  // setIndexBuffer(indices, sizeof(indices));
+  // unsigned int EBO = genAndBindEBO();
+  // setEBOData(indices, sizeof(indices));
 
   // // Location in layout: 0, POSITION (3 float values)
   // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
@@ -53,15 +53,15 @@ int main(int argc, char *argv[]) {
     0.45f, 0.5f, 0.0f   // top
   };
 
-  unsigned int VAO1 = createVertexArray();
-  unsigned int VBO1 = createVertexBuffer();
-  setVertexBuffer(firstTriangle, sizeof(firstTriangle));
+  unsigned int VAO1 = genAndBindVAO();
+  unsigned int VBO1 = genAndBindVBO();
+  setVBOData(firstTriangle, sizeof(firstTriangle));
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
 
-  unsigned int VAO2 = createVertexArray();
-  unsigned int VBO2 = createVertexBuffer();
-  setVertexBuffer(secondTriangle, sizeof(secondTriangle));
+  unsigned int VAO2 = genAndBindVAO();
+  unsigned int VBO2 = genAndBindVBO();
+  setVBOData(secondTriangle, sizeof(secondTriangle));
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
   glEnableVertexAttribArray(0);
   //////////////////////////////////////////////////////////////////////////////
