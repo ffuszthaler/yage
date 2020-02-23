@@ -22,7 +22,8 @@ unsigned int loadVertexShader(const char *vShaderSource) {
   fread(&content[0], 1, filesize, file);
   fclose(file);
 
-  std::cout << "[info] loaded vertex shader: " << vShaderSource << std::endl << content << std::endl;
+  // std::cout << "[info] loaded vertex shader: " << vShaderSource << std::endl << content << std::endl;
+  std::cout << "[info] loaded vertex shader: " << vShaderSource << std::endl;
 
   const char *vertexShaderSource = content.c_str();
 
@@ -58,7 +59,8 @@ unsigned int loadFragmentShader(const char *fShaderSource) {
 
   fileStream.close();
 
-  std::cout << "[info] loaded fragment shader: " << fShaderSource << std::endl << content << std::endl;
+  // std::cout << "[info] loaded fragment shader: " << fShaderSource << std::endl << content << std::endl;
+  std::cout << "[info] loaded fragment shader: " << fShaderSource << std::endl;
 
   const char *fragmentShaderSource = content.c_str();
 
