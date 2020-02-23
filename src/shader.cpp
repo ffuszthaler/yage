@@ -9,7 +9,7 @@ unsigned int loadVertexShader(const char *vShaderSource) {
 
   file = fopen(vShaderSource, "rb");
   if (file == nullptr) {
-    std::cout << "ERROR::SHADER::VERTEX::NOT_FOUND\n"
+    std::cout << "[error] vertex shader missing\n"
               << vShaderSource << std::endl;
   }
 
@@ -22,7 +22,7 @@ unsigned int loadVertexShader(const char *vShaderSource) {
   fread(&content[0], 1, filesize, file);
   fclose(file);
 
-  std::cout << "LOAD::SHADER::VERTEX - " << vShaderSource << std::endl << content << std::endl;
+  std::cout << "[info] loaded vertex shader: " << vShaderSource << std::endl << content << std::endl;
 
   const char *vertexShaderSource = content.c_str();
 
@@ -34,7 +34,7 @@ unsigned int loadVertexShader(const char *vShaderSource) {
   glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
   if (!success) {
     glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-    std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
+    std::cerr << "[error] vertex shader compilation failed\n"
               << infoLog << std::endl;
   }
 
@@ -46,7 +46,7 @@ unsigned int loadFragmentShader(const char *fShaderSource) {
   std::ifstream fileStream(fShaderSource, std::ios::in);
 
   if (!fileStream.is_open()) {
-    std::cerr << "ERROR::SHADER::VERTEX::NOT_FOUND\n"
+    std::cout << "[error] fragment shader missing\n"
               << fShaderSource << std::endl;
   }
 
@@ -58,7 +58,7 @@ unsigned int loadFragmentShader(const char *fShaderSource) {
 
   fileStream.close();
 
-  std::cout << "LOAD::SHADER::FRAGMENT - " << fShaderSource << std::endl << content << std::endl;
+  std::cout << "[info] loaded fragment shader: " << fShaderSource << std::endl << content << std::endl;
 
   const char *fragmentShaderSource = content.c_str();
 
@@ -70,7 +70,7 @@ unsigned int loadFragmentShader(const char *fShaderSource) {
   glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
   if (!success) {
     glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-    std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n"
+    std::cerr << "[error] fragment shader compilation failed\n"
               << infoLog << std::endl;
   }
 
@@ -87,7 +87,7 @@ unsigned int createShaderProgram(unsigned int vertexShader, unsigned int fragmen
   glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
   if (!success) {
     glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-    std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n"
+    std::cerr << "[error] shader program linking failed\n"
               << infoLog << std::endl;
   }
   glDeleteShader(vertexShader);

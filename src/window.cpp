@@ -14,7 +14,7 @@ GLFWwindow *setupWindow() {
       glfwCreateWindow(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, "game", NULL, NULL);
 
   if (window == NULL) {
-    printf("Failed to create window\n");
+    printf("[error] failed to create window\n");
     glfwTerminate();
     return NULL;
   }
@@ -23,11 +23,11 @@ GLFWwindow *setupWindow() {
 
   GLenum glewError = glewInit();
   if (glewError != GLEW_OK) {
-    printf("Error: %s\n", glewGetErrorString(glewError));
+    printf("[error] %s\n", glewGetErrorString(glewError));
     return NULL;
   }
 
-  std::cout << "INFO::VERSION::OPENGL - " << glGetString(GL_VERSION) << std::endl;
+  std::cout << "[info] opengl version: " << glGetString(GL_VERSION) << std::endl;
 
   glViewport(0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 
