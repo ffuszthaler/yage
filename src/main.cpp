@@ -12,7 +12,6 @@ int main(int argc, char *argv[]) {
 
   unsigned int vertexShader = loadVertexShader("src/shaders/basic.vs.glsl");
   unsigned int fragmentShader = loadFragmentShader("src/shaders/basic.fs.glsl");
-
   unsigned int shaderProgram = createShaderProgram(vertexShader, fragmentShader);
   //////////////////////////////////////////////////////////////////////////////
 
