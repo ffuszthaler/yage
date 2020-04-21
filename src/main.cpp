@@ -6,8 +6,13 @@ int main(int argc, char *argv[]) {
 
   //////////////////////////////////////////////////////////////////////////////
   // Load our shaders and shader program ///////////////////////////////////////
+  // (Paths are relative from "game.out" to "shaders") /////////////////////////
+  // Path: "src/shaders/basic.xx.glsl" - Command: ./build/game.out /////////////
+  // Path: "../src/shaders/basic.xx.glsl" - Command: ./game.out ////////////////
+
   unsigned int vertexShader = loadVertexShader("src/shaders/basic.vs.glsl");
   unsigned int fragmentShader = loadFragmentShader("src/shaders/basic.fs.glsl");
+
   unsigned int shaderProgram = createShaderProgram(vertexShader, fragmentShader);
   //////////////////////////////////////////////////////////////////////////////
 
