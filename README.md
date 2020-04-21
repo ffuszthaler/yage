@@ -21,3 +21,4 @@ But feel free to use it if you want.
 ## Gists that contain useful OpenGL code (atleast for me)
 
 * [Initialization of OpenGL buffers](https://gist.github.com/ffuszthaler/e2275ce3f233efe7653f5ce47292dbdc)
+* [OpenGL Buffer Usage](https://gist.github.com/ffuszthaler/e2784d6349e055b659c280b9127c1491#file-opengl_buffers_usage-cpp)
