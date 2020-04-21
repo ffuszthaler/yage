@@ -8,6 +8,7 @@ But feel free to use it if you want.
 ## TODOs
 
 - [ ] Decide which file loading methode we are going to use (src/shader.cpp)
+- [ ] Paths are relative from "game.out" to "shaders"
 
 
 ## Things I might use (in the future):

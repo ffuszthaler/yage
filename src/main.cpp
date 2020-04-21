@@ -6,41 +6,36 @@ int main(int argc, char *argv[]) {
 
   //////////////////////////////////////////////////////////////////////////////
   // Load our shaders and shader program ///////////////////////////////////////
-  // (Paths are relative from "game.out" to "shaders") /////////////////////////
-  // Path: "src/shaders/basic.xx.glsl" - Command: ./build/game.out /////////////
-  // Path: "../src/shaders/basic.xx.glsl" - Command: ./game.out ////////////////
-
   unsigned int vertexShader = loadVertexShader("src/shaders/basic.vs.glsl");
   unsigned int fragmentShader = loadFragmentShader("src/shaders/basic.fs.glsl");
   unsigned int shaderProgram = createShaderProgram(vertexShader, fragmentShader);
   //////////////////////////////////////////////////////////////////////////////
 
   //////////////////////////////////////////////////////////////////////////////
-  // Two triangles next to each other using two VAOs and VBOs //////////////////
-  // 1.
-  float firstTriangle[] = {
-    -0.9f, -0.5f, 0.0f,  // left
-    -0.0f, -0.5f, 0.0f,  // right
-    -0.45f, 0.5f, 0.0f,  // top
+  // Two triangles create one cube using one VAO, VBO and EBO //////////////////
+  float vertices[] = {
+    0.5f,   0.5f, 0.0f, // Top right
+    0.5f,  -0.5f, 0.0f, // Bottom right
+    -0.5f, -0.5f, 0.0f, // Bottom left
+    -0.5f,  0.5f, 0.0f  // Top left
   };
 
-  unsigned int VAO1 = genAndBindVAO();
-  unsigned int VBO1 = genAndBindVBO();
-  setVBOData(firstTriangle, sizeof(firstTriangle));
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-  glEnableVertexAttribArray(0);
-
-  // 2.
-  float secondTriangle[] = {
-    0.0f, -0.5f, 0.0f,  // left
-    0.9f, -0.5f, 0.0f,  // right
-    0.45f, 0.5f, 0.0f   // top
+  unsigned int indices[] = {
+    // Note that we start from 0!
+    0, 1, 3, // First triangle
+    1, 2, 3  // Second triangle
   };
 
-  unsigned int VAO2 = genAndBindVAO();
-  unsigned int VBO2 = genAndBindVBO();
-  setVBOData(secondTriangle, sizeof(secondTriangle));
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+  unsigned int VAO = genAndBindVAO();
+
+  unsigned int VBO = genAndBindVBO();
+  setVBOData(vertices, sizeof(vertices));
+
+  unsigned int EBO = genAndBindEBO();
+  setEBOData(indices, sizeof(indices));
+
+  // Location in layout: 0, POSITION (3 float values)
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
   glEnableVertexAttribArray(0);
   //////////////////////////////////////////////////////////////////////////////
 
@@ -56,10 +51,8 @@ int main(int argc, char *argv[]) {
     // Drawing
     glUseProgram(shaderProgram);
 
-    glBindVertexArray(VAO1);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    glBindVertexArray(VAO2);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glBindVertexArray(VAO);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     // GLFW: Swap buffers and poll IO events
     // (keys pressed/released, mouse moved etc.)
@@ -67,11 +60,10 @@ int main(int argc, char *argv[]) {
     glfwPollEvents();
   }
 
-  glDeleteVertexArrays(1, &VAO1);
-  glDeleteBuffers(1, &VBO1);
-
-  glDeleteVertexArrays(1, &VAO2);
-  glDeleteBuffers(1, &VBO2);
+  // De-allocate all resources
+  glDeleteVertexArrays(1, &VAO);
+  glDeleteBuffers(1, &VBO);
+  glDeleteBuffers(1, &EBO);
 
   glfwTerminate();
 
