@@ -37,6 +37,7 @@ int main(int argc, char *argv[]) {
   // Location in layout: 0, POSITION (3 float values)
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
   glEnableVertexAttribArray(0);
+  glBindVertexArray(0); // We can unbind the VAO so it can't be modified by other VAOs
   //////////////////////////////////////////////////////////////////////////////
 
   while (!glfwWindowShouldClose(window)) {
